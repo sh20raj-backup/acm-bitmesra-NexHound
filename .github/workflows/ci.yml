@@ -23,7 +23,7 @@ jobs:
         with:
           # Keep aligned with the minimum version declared in go.mod.
           go-version: stable
-          cache: true
+          cache: ${{ hashFiles('go.mod') != '' }}
 
       - name: Check gofmt
         shell: bash
