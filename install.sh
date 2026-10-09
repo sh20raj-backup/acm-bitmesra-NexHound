@@ -51,6 +51,8 @@ if [ "$go_arch" = armv6l ] && [ "$go_os" != linux ]; then die "armv6l is support
 printf '\n%sNexHound%s  %squick setup%s\n' "$C_BLUE" "$C_RESET" "$C_DIM" "$C_RESET"
 printf '%sLightweight diagnostics CLI · ACM BIT Mesra%s\n\n' "$C_DIM" "$C_RESET"
 have git || die "Git is required for source installation. Install Git and rerun."
+have awk || die "awk is required for portable version/checksum parsing."
+have sed || die "sed is required for portable version/checksum parsing."
 [ -n "${HOME:-}" ] || die "HOME is not set. Set HOME and rerun."
 mkdir -p "$CACHE_DIR" "$BIN_DIR" || die "Cannot create install directories under HOME. Set NEXHOUND_BIN_DIR to a writable path."
 TMP_DIR=$(mktemp -d "${TMPDIR:-/tmp}/nexhound-install.XXXXXX") || die "Could not create a temporary directory."
