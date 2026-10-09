@@ -1,8 +1,7 @@
 .PHONY: fmt test vet build check run
 
 fmt:
-	@files="$$(find . -name '*.go' -type f)"; \
-	if [ -n "$$files" ]; then gofmt -w $$files; fi
+	@files="$$(find . -name '*.go' -type f)"; 	if [ -n "$$files" ]; then gofmt -w $$files; fi
 
 test:
 	go test ./...
