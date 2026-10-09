@@ -55,15 +55,21 @@ Core use must not require Node.js, Docker, an external database, root privileges
 
 ## Quick start
 
-Install Go 1.24 or newer, then:
+**No global Go installation needed** on Linux or macOS. Review the installer first, then run:
 
-```bash
+```sh
+curl -fsSL https://raw.githubusercontent.com/acm-bitmesra/NexHound/main/install.sh | sh
+```
+
+The installer uses Go 1.24+ if available; otherwise it downloads and verifies an isolated toolchain in your user cache, then installs only the `nexhound` binary under `~/.local/bin`. It does not use `sudo`.
+
+See the [installation guide](docs/INSTALLATION.md) for review-first setup, supported platforms, PATH troubleshooting, and uninstall instructions. For future local web UI sharing, see [remote access and tunnels](docs/REMOTE_ACCESS.md). Tunnelling is not part of installation.
+
+For contributor development, install Go 1.24+ and Git, then:
+
+```sh
 git clone https://github.com/acm-bitmesra/NexHound.git
 cd NexHound
-
-go run ./cmd/nexhound help
-go run ./cmd/nexhound version
-
 go test ./...
 go vet ./...
 go build -o nexhound ./cmd/nexhound
