@@ -62,7 +62,7 @@ go build -o ./nexhound ./cmd/nexhound
 | macOS | amd64, arm64 | Supported by the bootstrap path |
 | Windows | — | Use WSL or build manually with Go |
 
-The installer needs Git, `curl` or `wget`, `tar`, and a SHA-256 tool (`sha256sum`, `shasum`, or `openssl`) only when it downloads Go. Python 3 is needed to parse Go's published download metadata when bootstrapping a toolchain; Go users with a compatible installed toolchain do not need it.
+The installer needs Git, `curl` or `wget`, `tar`, and a SHA-256 tool (`sha256sum`, `shasum`, or `openssl`) only when it downloads Go. It parses Go's published download metadata using POSIX tools; Python and `jq` are not required.
 
 ## Installed files and uninstall
 
