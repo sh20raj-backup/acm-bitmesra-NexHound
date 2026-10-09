@@ -13,8 +13,8 @@ This roadmap describes intended milestones, not completed features. Milestones m
 
 ## M1 — Useful local CLI
 
-- [ ] `nexhound version` and `nexhound help`
-- [ ] `nexhound system info` using portable, documented sources
+- [x] `nexhound version` and `nexhound help`
+- [x] `nexhound system info` using portable, documented sources
 - [ ] `nexhound network interfaces`
 - [ ] `nexhound network check` for configured endpoints
 - [ ] `nexhound dns lookup <hostname>`
