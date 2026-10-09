@@ -12,7 +12,7 @@ Students, developers, system administrators, and security learners, including fi
 
 ## Current state
 
-The repository began as a README-only bootstrap. Documentation now defines the product direction and contribution expectations. Check the current tree, commits, CI, and releases before assuming source code or features exist.
+The repository began as a README-only bootstrap and now contains project documentation plus a minimal Go CLI starter (`help` and `version`). Product diagnostics remain planned until implemented and tested. Check the current tree, commits, CI, and releases before assuming a feature exists.
 
 ## Product requirements
 
@@ -48,7 +48,7 @@ The repository began as a README-only bootstrap. Documentation now defines the p
 
 ## What to implement first
 
-A small executable with help and version, a go.mod, tests, and CI. Then add local system information, interface inspection, DNS lookup, and bounded network checks. Do not scaffold empty packages for every future idea.
+The initial executable with help and version, go.mod, tests, and CI is in place. Next add local system information, interface inspection, DNS lookup, and bounded network checks. Do not scaffold empty packages for every future idea.
 
 ## Naming
 
