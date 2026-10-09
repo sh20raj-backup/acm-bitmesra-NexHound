@@ -19,7 +19,7 @@ cd NexHound
 git switch -c feat/short-description
 ```
 
-The runnable application and exact minimum Go version will be documented once the initial CLI implementation is merged. Do not add setup steps for functionality that does not exist yet.
+A minimal CLI starter and go.mod are now present. The module declares Go 1.24.0 as its language baseline. Diagnostics listed in ROADMAP.md are not implemented unless a merged command and tests confirm otherwise.
 
 ## Workflow
 
