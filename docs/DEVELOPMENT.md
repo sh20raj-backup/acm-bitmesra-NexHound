@@ -2,29 +2,36 @@
 
 ## Prerequisites
 
-The initial CLI starter is written in Go. Install Go 1.24 or newer and Git. Docker, Node.js, and an external database are not required for core development.
+The CLI is written in Go. Use Go 1.24 or newer and Git for development. End users do not need a global Go installation: see [INSTALLATION.md](INSTALLATION.md) for the user-local bootstrap installer.
 
-The current go.mod declares Go 1.24.0 as the language baseline. Keep documentation, CI, and go.mod aligned if maintainers deliberately update the baseline.
+Docker, Node.js, and an external database are not required for core development. The current `go.mod` declares Go 1.24.0 as the language baseline. Keep documentation, CI, and `go.mod` aligned when maintainers deliberately update the baseline.
 
 ## Clone the repository
 
-```bash
+```sh
 git clone https://github.com/acm-bitmesra/NexHound.git
 cd NexHound
 ```
 
-## Planned quality checks
+## Build, test, and run
 
-Once the Go module exists:
+```sh
+gofmt -w ./cmd/nexhound
+go test ./...
+go vet ./...
+go build -o ./nexhound ./cmd/nexhound
+./nexhound help
+```
 
-```bash
-gofmt -w .
+## Quality checks
+
+CI runs formatting validation, tests, vet, and build. Run all checks before opening a pull request:
+
+```sh
 go test ./...
 go vet ./...
 go build ./...
 ```
-
-Only run commands applicable to the current codebase. Until a runnable CLI lands, documentation-only contributions can be reviewed for links, consistency, and Markdown formatting.
 
 ## Branch naming
 
@@ -41,3 +48,7 @@ Use deterministic unit tests wherever possible. Avoid requiring external service
 ## Dependencies
 
 Prefer the standard library. Any new dependency should include a justification, maintenance status, license compatibility, binary-size/runtime effect, and security implications in the PR description.
+
+## Remote access
+
+NexHound is currently a local CLI and does not run an HTTP server. Do not add tunneling to the install flow. If a future local dashboard is implemented, follow [REMOTE_ACCESS.md](REMOTE_ACCESS.md).
