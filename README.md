@@ -2,79 +2,100 @@
 
 **A lightweight, modular Linux security and network diagnostics toolkit by ACM BIT Mesra.**
 
-NexHound brings practical system diagnostics, network troubleshooting, privacy checks, and authorized security testing utilities into one small, easy-to-use command-line application.
+NexHound brings practical system diagnostics, network troubleshooting, privacy checks, and authorized security-testing utilities into one small, easy-to-use command-line application.
 
-Built for students, developers, system administrators, and security enthusiasts, NexHound prioritizes simplicity, portability, transparent behavior, and a contributor-friendly codebase.
+Built for students, developers, system administrators, and security learners, NexHound prioritizes simplicity, portability, transparent behavior, and a contributor-friendly codebase.
 
-> **Project status: documentation / bootstrap phase.** The feature list below describes the intended direction, not a claim that these features are already implemented. The first engineering milestone is a working, tested Go CLI. A minimal starter currently supports `help` and `version`; diagnostics are not implemented yet.
+> **Status: bootstrap phase.** A minimal Go CLI currently supports `help` and `version`. Diagnostic commands and background service support are planned, not implemented yet.
 
 ## Principles
 
-- **Lightweight:** no Docker, database server, or heavyweight runtime required.
-- **Easy to install:** target a single Go binary and a simple setup path.
-- **Linux-first:** support common Linux distributions; keep platform assumptions explicit.
+- **Lightweight:** no Docker, database server, Node.js, or heavyweight runtime required.
+- **Easy to install:** build or download a single Go binary.
+- **Linux-first:** support common Linux distributions and document platform assumptions.
 - **Modular:** small, focused, testable utilities.
-- **Privacy-first:** no covert tracking, no permission bypass, and no silent exfiltration.
-- **Safe by default:** potentially disruptive or sensitive operations require explicit scope and confirmation.
-- **Contributor-friendly:** good first issues, documentation, tests, and approachable code.
+- **Privacy-first:** no covert tracking, permission bypass, or silent report upload.
+- **Safe by default:** sensitive operations require explicit scope and confirmation.
+- **Contributor-friendly:** approachable issues, useful docs, tests, and focused pull requests.
+
+## Current commands
+
+| Command | Status | Purpose |
+|---|---|---|
+| `nexhound help` | Available | Show usage |
+| `nexhound version` | Available | Show version and runtime platform |
+| System/network diagnostics | Planned | See [ROADMAP.md](ROADMAP.md) |
+| Background service mode | Planned | Optional user-level service after lifecycle tests |
 
 ## Planned capabilities
-
-Implementation will be incremental and tracked in issues.
 
 - System information and health diagnostics
 - Network interface and connectivity checks
 - DNS, HTTP, TLS, and certificate diagnostics
 - Public-IP lookup and optional approximate IP geolocation
-- Local service and port inventory for the current machine or explicitly authorized targets
-- Transparent browser geolocation demos that require browser permission
-- Safe local webhook/request-inspection tools
+- Local service and port inventory on the current machine or explicitly authorized systems
+- Browser geolocation demonstrations with explicit disclosure and browser permission
+- Safe local webhook/request-inspection utilities
 - JSON and human-readable reports
-- Optional local dashboard
-- Background service support with status, logs, and clean shutdown
+- Optional embedded local dashboard
+- Background service management, logs, and clean shutdown
 
 ## Technology direction
 
 - **Core:** Go, using the standard library first
-- **CLI:** standard library initially; add Cobra only if command structure benefits
-- **Terminal UI:** optional Bubble Tea, not required for core use
-- **Storage:** files first; SQLite only when a real persistence requirement exists
+- **CLI:** start small; consider Cobra only if it solves a clear problem
+- **Terminal UI:** optional; not a core dependency
+- **Storage:** none by default; SQLite only if persistence is justified
 - **Dashboard:** optional embedded HTML/CSS/JavaScript served by Go
 - **Tests:** Go's built-in testing package
-- **CI:** GitHub Actions for formatting, tests, and builds
-- **Linux background mode:** foreground mode first; optional `systemd --user` service second
+- **CI:** GitHub Actions for formatting, tests, vet, and builds
+- **Background service:** optional `systemd --user` integration after foreground behavior is reliable
 
-The repository should remain useful without Node.js, Docker, a database service, root privileges, or a running dashboard. The optional features in the roadmap are not required to build or use the core CLI.
+Core use must not require Node.js, Docker, an external database, root privileges, or a running dashboard.
 
-## Status and non-goals
+## Quick start
 
-NexHound is intended for education, troubleshooting, and **authorized** security work. It is not intended to secretly collect location or device information, bypass browser permissions, deploy persistence onto machines without consent, or scan systems without authorization.
-
-Do not assume every planned command exists yet. See [ROADMAP.md](ROADMAP.md) and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
-
-## Getting started
-
-The project is in its bootstrap phase. A minimal CLI starter is present, but network and system diagnostic commands are still planned. Install Go, then run the checks below.
-
-Planned developer checks:
+Install Go 1.24 or newer, then:
 
 ```bash
-gofmt -w .
+git clone https://github.com/acm-bitmesra/NexHound.git
+cd NexHound
+
+go run ./cmd/nexhound help
+go run ./cmd/nexhound version
+
 go test ./...
 go vet ./...
+go build -o nexhound ./cmd/nexhound
+./nexhound help
 ```
 
-## Contributing
+The current starter prints help and version information only. Feature availability is tracked in [ROADMAP.md](ROADMAP.md).
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Please keep changes focused, add tests where behavior changes, and avoid adding dependencies without explaining the need.
+## Project context and contribution
+
+Start with [AGENTS.md](AGENTS.md) for coding-agent instructions and [docs/PROJECT_CONTEXT.md](docs/PROJECT_CONTEXT.md) for the concise project source of truth.
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
 
 - [Roadmap](ROADMAP.md)
 - [Architecture](docs/ARCHITECTURE.md)
+- [Development guide](docs/DEVELOPMENT.md)
+- [Proposed commands](docs/COMMANDS.md)
+- [Engineering principles](docs/PRINCIPLES.md)
+- [Threat model](docs/THREAT_MODEL.md)
 - [Security policy](SECURITY.md)
 - [Privacy policy](PRIVACY.md)
 - [Code of conduct](CODE_OF_CONDUCT.md)
+- [Release plan](docs/RELEASES.md)
 - [License](LICENSE)
+
+## Security and privacy boundaries
+
+NexHound is for education, troubleshooting, and authorized security work. It must not secretly collect location/device information, bypass browser permissions, install persistence without consent, or target systems without authorization.
+
+IP geolocation is approximate and must never be described as GPS. Network features must disclose destinations, use timeouts, bound responses, and make sensitive actions explicit.
 
 ## Community
 
-Built collaboratively by the ACM BIT Mesra community. Contributions are welcome from students and other developers who share the goals of responsible security engineering, simple Linux tooling, and maintainable open-source software.
+Built collaboratively by the ACM BIT Mesra community. Contributions are welcome from students and other developers who care about responsible security engineering, simple Linux tooling, and maintainable open source.
