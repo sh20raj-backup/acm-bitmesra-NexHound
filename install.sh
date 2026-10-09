@@ -73,18 +73,8 @@ if [ -z "$GO_BIN" ]; then
     metadata="$TMP_DIR/go-downloads.json"
     download "https://go.dev/dl/$go_archive" "$archive" || die "Go download failed. Check the connection and retry."
     download "https://go.dev/dl/?mode=json&include=all" "$metadata" || die "Could not download Go checksum metadata."
-    expected=$(awk -v f="$go_archive" '
-      BEGIN { RS="\\"filename\\""; FS="\\""; }
-      NR > 1 && index($0, f) == 1 {
-        if (match($0, /\\"sha256\\":[[:space:]]*\\"[0-9a-fA-F]+\\"/)) {
-          value=substr($0, RSTART, RLENGTH)
-          sub(/^.*\\"sha256\\":[[:space:]]*\\"/, "", value)
-          sub(/\\"$/, "", value)
-          print value
-          exit
-        }
-      }
-    ' "$metadata")
+    # Locate this filename's JSON record, then extract its SHA-256 field.
+    expected=$(grep -F -A 12 -B 1 "\"filename\":\"$go_archive\"" "$metadata" | sed -n 's/.*"sha256"[[:space:]]*:[[:space:]]*"\([0-9a-fA-F]*\)".*/\1/p' | head -n 1)
     [ -n "$expected" ] || die "Could not find the published checksum for $go_archive. Nothing was installed."
     case "$expected" in *[!0-9a-fA-F]*|'') die "Invalid checksum metadata. Nothing was installed." ;; esac
     [ "${#expected}" -eq 64 ] || die "Invalid SHA-256 metadata. Nothing was installed."
