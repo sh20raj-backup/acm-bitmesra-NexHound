@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"os"
+	"runtime"
 	"strings"
 	"testing"
 )
@@ -50,5 +52,38 @@ func TestRunUnknownCommand(t *testing.T) {
 func TestVersionString(t *testing.T) {
 	if version == "" {
 		t.Fatal("version must not be empty")
+	}
+}
+
+func TestRunSystemInfo(t *testing.T) {
+	var out bytes.Buffer
+	if err := runWithOutput([]string{"system", "info"}, &out); err != nil {
+		t.Fatalf("run(system info) returned error: %v", err)
+	}
+	for _, want := range []string{runtime.GOOS, runtime.GOARCH, runtime.Version(), "Logical CPUs:"} {
+		if !strings.Contains(out.String(), want) {
+			t.Errorf("system info output missing %q: %s", want, out.String())
+		}
+	}
+}
+
+func TestPrintSystemInfoMissingValues(t *testing.T) {
+	var out bytes.Buffer
+	printSystemInfo(&out, systemInfo{})
+	for _, want := range []string{
+		"Operating system: unknown",
+		"Architecture: unknown",
+		"Go runtime: unknown",
+		"Logical CPUs: unknown",
+	} {
+		if !strings.Contains(out.String(), want) {
+			t.Errorf("system info output missing fallback %q: %s", want, out.String())
+		}
+	}
+}
+
+func TestRunSystemInfoRejectsUnexpectedSubcommand(t *testing.T) {
+	if err := runWithOutput([]string{"system", "unknown"}, &bytes.Buffer{}); err == nil {
+		t.Fatal("expected error for unknown system subcommand")
 	}
 }
