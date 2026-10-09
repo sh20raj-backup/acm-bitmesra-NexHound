@@ -2,9 +2,9 @@
 
 ## Prerequisites
 
-The first implementation is planned in Go. Install a supported Go toolchain and Git. Docker, Node.js, and an external database should not be required for core development.
+The initial CLI starter is written in Go. Install Go 1.24 or newer and Git. Docker, Node.js, and an external database are not required for core development.
 
-The minimum Go version will be declared in `go.mod` when the first code is merged. Avoid stating an unverified version in scripts or docs.
+The current go.mod declares Go 1.24.0 as the language baseline. Keep documentation, CI, and go.mod aligned if maintainers deliberately update the baseline.
 
 ## Clone the repository
 
