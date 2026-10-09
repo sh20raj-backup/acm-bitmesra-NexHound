@@ -6,7 +6,7 @@ NexHound brings practical system diagnostics, network troubleshooting, privacy c
 
 Built for students, developers, system administrators, and security enthusiasts, NexHound prioritizes simplicity, portability, transparent behavior, and a contributor-friendly codebase.
 
-> **Project status: documentation / bootstrap phase.** The feature list below describes the intended direction, not a claim that these features are already implemented. The first engineering milestone is a working, tested Go CLI.
+> **Project status: documentation / bootstrap phase.** The feature list below describes the intended direction, not a claim that these features are already implemented. The first engineering milestone is a working, tested Go CLI. A minimal starter currently supports `help` and `version`; diagnostics are not implemented yet.
 
 ## Principles
 
@@ -44,7 +44,7 @@ Implementation will be incremental and tracked in issues.
 - **CI:** GitHub Actions for formatting, tests, and builds
 - **Linux background mode:** foreground mode first; optional `systemd --user` service second
 
-The repository should remain useful without Node.js, Docker, a database service, root privileges, or a running dashboard.
+The repository should remain useful without Node.js, Docker, a database service, root privileges, or a running dashboard. The optional features in the roadmap are not required to build or use the core CLI.
 
 ## Status and non-goals
 
@@ -54,7 +54,7 @@ Do not assume every planned command exists yet. See [ROADMAP.md](ROADMAP.md) and
 
 ## Getting started
 
-This project is in its bootstrap phase. Once the initial Go CLI lands, the supported local development workflow will be documented here. Until then, contributors can help with documentation, design review, architecture proposals, and scoped implementation issues.
+The project is in its bootstrap phase. A minimal CLI starter is present, but network and system diagnostic commands are still planned. Install Go, then run the checks below.
 
 Planned developer checks:
 
