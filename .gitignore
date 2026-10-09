@@ -1,0 +1,26 @@
+# Go binaries
+/nexhound
+/dist/
+/build/
+
+# Local configuration and reports
+*.local.json
+*.local.toml
+*.report.json
+/reports/
+/data/
+
+# Logs
+*.log
+logs/
+
+# Editor and OS files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.tmp
+
+# Test outputs
+coverage.out
+coverage.html
