@@ -1,7 +1,8 @@
-.PHONY: fmt test vet build check
+.PHONY: fmt test vet build check run
 
 fmt:
-	gofmt -w $$(find . -name '*.go' -type f)
+	@files="$$(find . -name '*.go' -type f)"; \
+	if [ -n "$$files" ]; then gofmt -w $$files; fi
 
 test:
 	go test ./...
@@ -11,5 +12,8 @@ vet:
 
 build:
 	go build ./...
+
+run:
+	go run ./cmd/nexhound help
 
 check: fmt test vet build
