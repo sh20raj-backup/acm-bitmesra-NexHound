@@ -6,7 +6,7 @@ NexHound brings practical system diagnostics, network troubleshooting, privacy c
 
 Built for students, developers, system administrators, and security learners, NexHound prioritizes simplicity, portability, transparent behavior, and a contributor-friendly codebase.
 
-> **Status: bootstrap phase.** A minimal Go CLI currently supports `help` and `version`. Diagnostic commands and background service support are planned, not implemented yet.
+> **Status: early development.** The Go CLI supports `help`, `version`, and local `system info`. Other diagnostic commands and background service support remain planned.
 
 ## Principles
 
@@ -24,12 +24,12 @@ Built for students, developers, system administrators, and security learners, Ne
 |---|---|---|
 | `nexhound help` | Available | Show usage |
 | `nexhound version` | Available | Show version and runtime platform |
-| System/network diagnostics | Planned | See [ROADMAP.md](ROADMAP.md) |
-| Background service mode | Planned | Optional user-level service after lifecycle tests |
+| `nexhound system info` | Available | Show OS, architecture, Go runtime, and logical CPU count from local runtime sources |
+
+System information is read-only and does not include usernames, hostnames, serial numbers, home-directory paths, network requests, or telemetry. See [command design](docs/COMMANDS.md) for status and safety notes.
 
 ## Planned capabilities
 
-- System information and health diagnostics
 - Network interface and connectivity checks
 - DNS, HTTP, TLS, and certificate diagnostics
 - Public-IP lookup and optional approximate IP geolocation
@@ -74,9 +74,10 @@ go test ./...
 go vet ./...
 go build -o nexhound ./cmd/nexhound
 ./nexhound help
+./nexhound system info
 ```
 
-The current starter prints help and version information only. Feature availability is tracked in [ROADMAP.md](ROADMAP.md).
+Available commands are listed above; planned features are tracked in [ROADMAP.md](ROADMAP.md).
 
 ## Project context and contribution
 
@@ -87,7 +88,7 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
 - [Roadmap](ROADMAP.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Development guide](docs/DEVELOPMENT.md)
-- [Proposed commands](docs/COMMANDS.md)
+- [Command design and status](docs/COMMANDS.md)
 - [Engineering principles](docs/PRINCIPLES.md)
 - [Threat model](docs/THREAT_MODEL.md)
 - [Security policy](SECURITY.md)
