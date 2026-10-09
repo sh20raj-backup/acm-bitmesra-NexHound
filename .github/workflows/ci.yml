@@ -21,9 +21,8 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          # Keep aligned with the minimum version declared in go.mod.
-          go-version: stable
-          cache: ${{ hashFiles('go.mod') != '' }}
+          go-version-file: go.mod
+          cache: true
 
       - name: Check gofmt
         shell: bash
@@ -36,18 +35,10 @@ jobs:
           fi
 
       - name: Run tests
-        run: |
-          if [ -f go.mod ]; then
-            go test ./...
-          else
-            echo "No go.mod yet; tests will run after the first Go implementation."
-          fi
+        run: go test ./...
 
-      - name: Run vet and build
-        run: |
-          if [ -f go.mod ]; then
-            go vet ./...
-            go build ./...
-          else
-            echo "No go.mod yet; vet/build will run after the first Go implementation."
-          fi
+      - name: Run vet
+        run: go vet ./...
+
+      - name: Build
+        run: go build ./...
