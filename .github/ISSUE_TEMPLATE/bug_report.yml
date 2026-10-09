@@ -1,0 +1,46 @@
+name: Bug report
+description: Report a reproducible problem in NexHound.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Please do not include credentials, personal data, private IP logs, or location history."
+  - type: input
+    id: version
+    attributes:
+      label: NexHound version / commit
+      placeholder: "not yet released / commit SHA"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS and architecture
+      placeholder: "e.g. Ubuntu 24.04 x86_64"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Use only test data and systems you are authorized to access.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs (redacted)
+      description: Remove tokens, credentials, personal data, and sensitive hostnames before posting.
