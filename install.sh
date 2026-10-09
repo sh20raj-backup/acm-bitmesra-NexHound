@@ -61,7 +61,7 @@ GO_BIN=""
 if have go; then
   candidate=$(command -v go)
   version=$("$candidate" version 2>/dev/null | awk '{print $3}' | sed 's/^go//')
-  version_num=$(printf '%s\n' "$version" | awk -F. '{printf "%d%03d\n",$1,$2}')
+  version_num=$(printf '%s\n' "$version" | awk -F. '{minor=$2; sub(/[^0-9].*/, "", minor); printf "%d%03d\n",$1,minor}')
   required_num=$(printf '%s\n' "$MIN_GO_MAJOR.$MIN_GO_MINOR" | awk -F. '{printf "%d%03d\n",$1,$2}')
   if [ -n "$version_num" ] && [ "$version_num" -ge "$required_num" ]; then GO_BIN=$candidate; fi
 fi
