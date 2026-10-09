@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  go-checks:
+    name: Go checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          # Keep aligned with the minimum version declared in go.mod.
+          go-version: stable
+          cache: true
+
+      - name: Check gofmt
+        shell: bash
+        run: |
+          files="$(git ls-files '*.go')"
+          if [ -n "$files" ] && [ -n "$(gofmt -l $files)" ]; then
+            echo "These Go files need gofmt:"
+            gofmt -l $files
+            exit 1
+          fi
+
+      - name: Run tests
+        run: |
+          if [ -f go.mod ]; then
+            go test ./...
+          else
+            echo "No go.mod yet; tests will run after the first Go implementation."
+          fi
+
+      - name: Run vet and build
+        run: |
+          if [ -f go.mod ]; then
+            go vet ./...
+            go build ./...
+          else
+            echo "No go.mod yet; vet/build will run after the first Go implementation."
+          fi
